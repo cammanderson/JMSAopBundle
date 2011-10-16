@@ -21,6 +21,7 @@ use JMS\AopBundle\Aop\PointcutInterface;
 
 /**
  * An annotation based declaration of pointcuts supporting a similar format to AspectJ
+ * TODO: move out method pattern matching
  * @author cammanderson (camm@flintinteractive.com.au)
  */
 class Pointcut
