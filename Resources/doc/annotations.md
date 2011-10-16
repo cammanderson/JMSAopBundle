@@ -12,9 +12,11 @@ JMSAopBundle supports the declaring of several annotations within you Aspect to 
 
 ### Pointcut Annotations
 
-    @AOP\Pointcut('execute(public Example\MyClass::method(..)')
+    @AOP\Pointcut('execution(public Example\MyClass::method(..)')
 
 ### Putting it together
+
+Create an aspect that will trace all calls to our "MyService"
 
     use JMS\AopBundle\Configuration as AOP;
     use Symfony\Component\HttpKernel\Log\LoggerInterface;
@@ -23,7 +25,7 @@ JMSAopBundle supports the declaring of several annotations within you Aspect to 
     /**
      * @AOP\Aspect
      */
-    class MyServiceLoggingAspect
+    class MyServiceTracingAspect
     {
 
         private $logger;
@@ -38,19 +40,16 @@ JMSAopBundle supports the declaring of several annotations within you Aspect to 
         }
 
         /**
-         * @AOP\Pointcut("execution(public MyService::*(..))");
-         */
-        public function apiCall()
-        {}
-
-        /**
-         * @aop\Around("apiCall()");
+         * @aop\Around("execution(public MyService::*(..))");
          */
         public function aroundApiCall(MethodInterceptorInterface $interceptor)
         {
             // Something at the start
+
             $val = $interceptor->proceed();
+
             // Something at the end
+
             return $val;
         }
     }
