@@ -1,7 +1,13 @@
 
 ## Defining an aspect
 
-JMSAopBundle supports the declaring of pointcuts with annotations within you aspect.
+JMSAopBundle supports the declaring of several annotations within you Aspect to assist AOP.
+
+    @AOP\Aspect
+    @AOP\Pointcut
+    @AOP\Before
+    @AOP\AfterReturning
+    @AOP\AfterThrowing
 
 ### Pointcut Annotations
 
@@ -16,7 +22,7 @@ JMSAopBundle supports the declaring of pointcuts with annotations within you asp
     /**
      * @AOP\Aspect
      */
-    class MyServerLoggingAspect {
+    class MyServiceLoggingAspect {
 
         private $logger;
 
@@ -38,7 +44,7 @@ JMSAopBundle supports the declaring of pointcuts with annotations within you asp
          * @aop\Before("trace()");
          */
         public function beforeTrace(MethodInterceptorInterface $interceptor) {
-            // ...
+            // $this->logger->info ...
         }
     }
 
