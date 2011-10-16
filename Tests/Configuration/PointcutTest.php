@@ -17,7 +17,7 @@ class PointcutTest extends \PHPUnit_Framework_TestCase
      */
     public function testMethodMatch()
     {
-        $pointcut = new Pointcut(array('value' => 'execute(public JMS\AopBundle\Tests\Configuration\ExampleClass::foo(..))'));
+        $pointcut = new Pointcut(array('value' => 'execution(public JMS\AopBundle\Tests\Configuration\ExampleClass::foo(..))'));
 
         $class = new \ReflectionClass('JMS\AopBundle\Tests\Configuration\ExampleClass');
         $method = $class->getMethod('foo');
@@ -26,7 +26,7 @@ class PointcutTest extends \PHPUnit_Framework_TestCase
         $method = $class->getMethod('bar');
         $this->assertFalse($pointcut->matchesMethod($method), 'Should not have matched our execute method ' . $method . ' for ' . $pointcut);
 
-        $pointcut = new Pointcut(array('value' => 'call(* JMS\AopBundle\Tests\Configuration\ExampleClass::*Bar(..))'));
+        $pointcut = new Pointcut(array('value' => 'execution(* JMS\AopBundle\Tests\Configuration\ExampleClass::*Bar(..))'));
         $method = $class->getMethod('fooBar');
         $this->assertTrue($pointcut->matchesMethod($method), 'Should have matched our execute method ' . $method . ' for ' . $pointcut);
 
@@ -38,7 +38,7 @@ class PointcutTest extends \PHPUnit_Framework_TestCase
      */
     public function testPrivateMethodMatch()
     {
-        $pointcut = new Pointcut(array('value' => 'execute(private JMS\AopBundle\Tests\Configuration\ExampleClass::myFooBar(..))'));
+        $pointcut = new Pointcut(array('value' => 'execution(private JMS\AopBundle\Tests\Configuration\ExampleClass::myFooBar(..))'));
         $class = new \ReflectionClass('JMS\AopBundle\Tests\Configuration\ExampleClass');
         $method = $class->getMethod('foo');
 
@@ -51,7 +51,7 @@ class PointcutTest extends \PHPUnit_Framework_TestCase
      */
     public function testClassMatch()
     {
-        $pointcut = new Pointcut(array('value' => 'execute(public JMS\*::foo(..))'));
+        $pointcut = new Pointcut(array('value' => 'execution(public JMS\*::foo(..))'));
 
         $method = new \ReflectionMethod('JMS\AopBundle\Tests\Configuration\ExampleClass', 'foo');
         $this->assertTrue($pointcut->matchesMethod($method));

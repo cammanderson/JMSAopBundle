@@ -44,7 +44,7 @@ class Pointcut
     {
         // Determine if we have our signature parsed yet
         if(empty($this->signature) && trim($this->value)) {
-            if(preg_match('/^(execute|call)[\s]*\((.*)\)$/', $this->value, $matches)) {
+            if(preg_match('/^(execution)[\s]*\((.*)\)$/', $this->value, $matches)) {
                 $this->type = $matches[1];
                 $this->signature = $matches[2];
                 if(preg_match('/^([^\s]+)[\s]+([^\(]*)/', $this->signature, $matches)) {
