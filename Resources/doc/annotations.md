@@ -23,7 +23,8 @@ JMSAopBundle supports the declaring of several annotations within you Aspect to 
     /**
      * @AOP\Aspect
      */
-    class MyServiceLoggingAspect {
+    class MyServiceLoggingAspect
+    {
 
         private $logger;
 
@@ -37,17 +38,20 @@ JMSAopBundle supports the declaring of several annotations within you Aspect to 
         }
 
         /**
-         * @AOP\Pointcut("execute(public MyService::*(..))");
+         * @AOP\Pointcut("execution(public MyService::*(..))");
          */
-        public function apiCall() {}
+        public function apiCall()
+        {}
 
         /**
          * @aop\Around("apiCall()");
          */
-        public function aroundApiCall(MethodInterceptorInterface $interceptor) {
+        public function aroundApiCall(MethodInterceptorInterface $interceptor)
+        {
             // Something at the start
-            $interceptor->proceed();
+            $val = $interceptor->proceed();
             // Something at the end
+            return $val;
         }
     }
 
