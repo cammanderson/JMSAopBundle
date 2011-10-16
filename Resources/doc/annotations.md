@@ -5,6 +5,7 @@ JMSAopBundle supports the declaring of several annotations within you Aspect to 
 
     @AOP\Aspect
     @AOP\Pointcut
+    @AOP\Around
     @AOP\Before
     @AOP\AfterReturning
     @AOP\AfterThrowing
@@ -38,13 +39,15 @@ JMSAopBundle supports the declaring of several annotations within you Aspect to 
         /**
          * @AOP\Pointcut("execute(public MyService::*(..))");
          */
-        public function trace() {}
+        public function apiCall() {}
 
         /**
-         * @aop\Before("trace()");
+         * @aop\Around("apiCall()");
          */
-        public function beforeTrace(MethodInterceptorInterface $interceptor) {
-            // $this->logger->info ...
+        public function aroundApiCall(MethodInterceptorInterface $interceptor) {
+            // Something at the start
+            $interceptor->proceed();
+            // Something at the end
         }
     }
 
